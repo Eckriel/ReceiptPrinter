@@ -34,4 +34,6 @@ public class ReceiptPrinterApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    // TEst
 }
