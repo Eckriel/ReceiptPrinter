@@ -735,7 +735,4 @@ public class ReceiptController implements Initializable {
 
         }
 
-        // Commented code
-        // Test
-
 }
