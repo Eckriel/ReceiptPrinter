@@ -35,5 +35,4 @@ public class ReceiptPrinterApp extends Application {
         launch(args);
     }
 
-    // TEst
 }
