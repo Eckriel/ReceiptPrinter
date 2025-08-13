@@ -16,12 +16,14 @@ import javafx.stage.Stage;
 import javafx.scene.transform.Scale;
 import javafx.print.PrinterJob;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.io.FileWriter;
 import javafx.stage.FileChooser;
 import java.io.File;
 import java.time.DayOfWeek;
+import java.time.temporal.ChronoUnit;
 
 import javafx.print.*;
 import javafx.scene.text.Text;
@@ -632,7 +634,7 @@ public class ReceiptController implements Initializable {
         private void dueDateDaysAdder() {
 
                 // Indicate which value enteres
-                int check = -1;
+                Boolean check = false;
                 String dueDate = dueDateField.getText().trim().toLowerCase();
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -646,17 +648,17 @@ public class ReceiptController implements Initializable {
                 if (dueDate.equals("today")) {
                         daysTillDue = 0;
                         formattedDate = todayDate.format(formatter);
-                        check = 1;
+                        check = true;
                         dueMessage = "DUE TODAY!";
                 } else if (dueDate.equals("tomorrow") || dueDate.equals("tmr")) {
                         daysTillDue = 1;
                         formattedDate = todayDate.plusDays(1).format(formatter);
-                        check = 1;
+                        check = true;
                         dueMessage = "Due tomorrow";
                 }
 
                 // Days ie. Monday, Tuesday
-                if (check != 1) {
+                if (check != true) {
                         HashMap<String, Integer> dayNames = new HashMap<>();
                         dayNames.put("sunday", 0);
                         dayNames.put("sun", 0);
@@ -707,14 +709,14 @@ public class ReceiptController implements Initializable {
                                 }
                                 formattedDate = todayDate.plusDays(daysTillDue).format(formatter);
                                 dueMessage = "Due in " + daysTillDue + " days";
-                                check = 1;
+                                check = true;
 
                         }
 
                 }
 
                 // Relative days ie. 3 days, 2 weeks
-                if (check != 1) {
+                if (check != true) {
                         if (dueDate.contains("day")) {
                                 String numberPart = dueDate.replaceAll("[^0-9]", "");
                                 daysTillDue = Integer.parseInt(numberPart);
@@ -728,6 +730,22 @@ public class ReceiptController implements Initializable {
 
                                 dueMessage = "Due in " + daysTillDue + " days";
                         }
+                }
+
+                if (check != true) {
+                        String[] dueDateArray = new String[3];
+                        if (dueDate.contains("-")) {
+                                dueDateArray = dueDate.split("-");
+                                for (int i = 1; i < dueDateArray.length; i++) {
+                                        if (dueDateArray[i].length() != 2) {
+                                                dueDateArray[i] = "0" + dueDateArray[i];
+                                        }
+                                }
+                                formattedDate += String.join("-", dueDateArray);
+                        }
+                        long daysBetween = ChronoUnit.DAYS.between(todayDate.toLocalDate(),
+                                        LocalDate.parse(formattedDate));
+                        dueMessage = "Due in " + daysBetween + " days";
                 }
 
                 previewArea.appendText("Due Date: " + formattedDate + "\n");
