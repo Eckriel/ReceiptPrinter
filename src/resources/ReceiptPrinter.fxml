@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.receiptprinter.ReceiptController">
+   <top>
+      <VBox styleClass="header-section">
+         <padding><Insets bottom="10.0" left="20.0" right="20.0" top="20.0" /></padding>
+         <Label styleClass="app-title" text="ASCII Receipt Printer" />
+         <!-- <Label styleClass="app-subtitle" text="Create beautiful ASCII art receipts for tasks, reminders, and notes" /> -->
+      </VBox>
+   </top>
+   
+   <center>
+      <HBox spacing="10.0">
+         <padding><Insets bottom="20.0" left="20.0" right="20.0" top="10.0" /></padding>
+         
+         <!-- Left Panel -->
+         <VBox prefWidth="500.0" styleClass="input-panel">
+            <padding><Insets bottom="20.0" left="20.0" right="20.0" top="20.0" /></padding>
+            <spacing>15</spacing>
+            
+            <Label styleClass="section-title" text="Receipt Details" />
+            
+            <VBox spacing="5">
+               <Label styleClass="field-label" text="Header Type:" />
+               <ComboBox fx:id="headerTypeCombo" maxWidth="Infinity" />
+            </VBox>
+            
+            <VBox fx:id="customHeaderGroup" spacing="5" visible="false" managed="false">
+               <Label styleClass="field-label" text="Custom Header Text:" />
+               <TextField fx:id="customHeaderField" promptText="Enter your custom header" />
+            </VBox>
+            
+            <VBox spacing="5">
+               <Label styleClass="field-label" text="Subject Title (Optional):" />
+               <TextField fx:id="subjectTitleField" promptText="e.g., DAILY TASKS" />
+            </VBox>
+            
+            <VBox spacing="5">
+               <Label styleClass="field-label" text="Priority:" />
+               <ComboBox fx:id="priorityCombo" maxWidth="Infinity" promptText="No Priority"/>
+            </VBox>
+            
+            <VBox spacing="5">
+               <Label styleClass="field-label" text="Due Date:" />
+               <TextField fx:id="dueDateField" promptText="YYYY-MM-DD, 'today', 'tomorrow'" />
+               <HBox spacing="5">
+                  <Button fx:id="todayBtn" styleClass="quick-date-btn" text="Today" />
+                  <Button fx:id="tomorrowBtn" styleClass="quick-date-btn" text="Tomorrow" />
+                  <Button fx:id="threeDaysBtn" styleClass="quick-date-btn" text="3 Days" />
+                  <Button fx:id="weekBtn" styleClass="quick-date-btn" text="1 Week" />
+                  <Button fx:id="clearDaysBtn" styleClass="quick-date-btn" text="Clear" />
+               </HBox>
+               <Label styleClass="help-text" text="Format: YYYY-MM-DD, relative dates, or leave empty" />
+            </VBox>
+            
+            <VBox spacing="5" VBox.vgrow="ALWAYS">
+               <Label styleClass="field-label" text="Main Content:" />
+               <TextArea fx:id="mainContentArea" prefRowCount="4" promptText="Enter your content here..." wrapText="true" VBox.vgrow="ALWAYS" />
+            </VBox>
+            
+            <GridPane hgap="10" vgap="10">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+               </columnConstraints>
+               
+               <Button fx:id="saveBtn" maxWidth="Infinity" styleClass="btn-success" text="Save" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+               <Button fx:id="printBtn" maxWidth="Infinity" styleClass="btn-warning" text="Print" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+               <Button fx:id="clearBtn" maxWidth="Infinity" styleClass="btn-danger" text="Clear" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            </GridPane>
+         </VBox>
+         
+         <!-- Right Panel -->
+         <VBox prefWidth="380.0" styleClass="preview-panel" HBox.hgrow="ALWAYS">
+            <padding><Insets bottom="20.0" left="20.0" right="20.0" top="20.0" /></padding>
+            <spacing>10</spacing>
+            
+            <Label styleClass="section-title" text="Live Preview" />
+            <TextArea fx:id="previewArea" editable="false" prefRowCount="25" styleClass="preview-text" style="-fx-hbar-policy: never; -fx-vbar-policy: as-needed;" wrapText="false" VBox.vgrow="ALWAYS" />
+
+         </VBox>
+      </HBox>
+   </center>
+   
+   <bottom>
+      <Label fx:id="statusLabel" styleClass="status-bar" text="Ready to create receipts!">
+         <padding><Insets bottom="8.0" left="20.0" right="20.0" top="8.0" /></padding>
+      </Label>
+   </bottom>
+</BorderPane>
