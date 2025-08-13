@@ -187,9 +187,15 @@ public class ReceiptController implements Initializable {
                         previewArea.appendText("\n" + centeredText(priorityCombo.getValue(), 43));
                 }
 
+                // Description
+                if (!mainContentArea.getText().isEmpty()) {
+                        previewArea.appendText(repeat("~", 43));
+                        previewArea.appendText(centeredText(mainContentArea.getText(), 43) + "\n");
+                        previewArea.appendText(repeat("~", 43));
+                }
+
                 // Dates
                 creationDate();
-
                 if (!dueDateField.getText().isEmpty()) {
                         dueDateDaysAdder();
                 }
