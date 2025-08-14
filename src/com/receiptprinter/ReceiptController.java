@@ -184,7 +184,7 @@ public class ReceiptController implements Initializable {
                 // Priority
                 String priority = priorityCombo.getValue();
                 if (!"No Priority".equals(priority) && priority != null) {
-                        previewArea.appendText("\n" + centeredText(priorityCombo.getValue(), 43));
+                        previewArea.appendText("\n" + centeredText(priorityCombo.getValue(), 43) + "\n\n");
                 }
 
                 // Description
@@ -192,12 +192,14 @@ public class ReceiptController implements Initializable {
                         previewArea.appendText(repeat("~", 43));
                         previewArea.appendText(centeredText(mainContentArea.getText(), 43) + "\n");
                         previewArea.appendText(repeat("~", 43));
+
                 }
 
                 // Dates
                 creationDate();
                 if (!dueDateField.getText().isEmpty()) {
                         dueDateDaysAdder();
+
                 }
 
                 statusLabel.setText("Preview updated!");
@@ -757,6 +759,11 @@ public class ReceiptController implements Initializable {
                 previewArea.appendText("Due Date: " + formattedDate + "\n");
                 previewArea.appendText(dueMessage);
 
+        }
+
+        private String wrapText(String text, int width) {
+
+                return "";
         }
 
 }
